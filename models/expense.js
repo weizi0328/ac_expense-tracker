@@ -17,7 +17,11 @@ const expenseSchema = new Schema({
   amount: {
     type: Number,
     required: true
-  }
+  },
+  createAt: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
-module.exports = mongoose.model('Expense', todoSchema)
+module.exports = mongoose.model('Expense', expenseSchema)
