@@ -7,6 +7,8 @@ const Expense = require('./models/expense')
 
 const app = express()
 
+const port = 3000
+
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
@@ -31,17 +33,42 @@ app.get('/', (req, res) => {
     .catch(err => console.error(err))
 })
 
+// 新增
 app.get('/expenses/new', (req, res) => {
   return res.render('new')
 })
 
-app.post('/expenses/new', (req, res) => {
-  const name = req.body.name
-  return Expense.create({ name })
+app.post('/expenses', (req, res) => {
+  return Expense.create(req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 
-app.listen(3000, () => {
-  console.log('App is running on http://localhost:3000')
+// 修改
+app.get('/expenses/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Expense.findById(id)
+    .lean()
+    .then(expenses => res.render('edit', { expenses }))
+    .catch(err => console.log(err))
+})
+
+app.post('/expenses/:id/edit', (req, res) => {
+  const id = req.params.id
+  const data = req.body
+  return Expense.findById(id)
+    .then(expenses => {
+      const columns = ['name', 'date', 'category', 'amount']
+      for (let i = 0; i < columns.length; i++) {
+        expenses[columns[i]] = data[columns[i]]
+      }
+      return expenses.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
+
+
+app.listen(port, () => {
+  console.log(`Express is running on http://localhost:${port}`)
 })

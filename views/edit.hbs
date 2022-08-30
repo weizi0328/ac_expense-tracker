@@ -1,29 +1,30 @@
 <div class="container mt-5">
 
-  <form action="/expenses" method="POST">
+  <form action="/expenses/{{ expenses._id }}/edit" method="POST">
 
     <div class="d-flex mb-3">
       <div id="formHelp" class="form-text p-3 mb-3">*必填欄位</div>
       <div class="p-2 flex-grow-1">
-        <h3 class="text-center">請輸入你的支出</h3>
+        <h3 class="text-center">請修改你的支出</h3>
       </div>
     </div>
 
     <div class="d-flex mb-3">
       <label for="name" class="form-label p-2">名稱*：</label>
-      <input type="text" class="form-control p-2 flex-grow-1" id="name" aria-describedby="name" placeholder="name"
-        name="name">
+      <input type="text" class="form-control p-2 flex-grow-1" id="name" aria-describedby="name" placeholder="date"
+        name="name" value="{{ expenses.name }}">
     </div>
 
     <div class="d-flex mb-3">
       <label for="date" class="form-label p-2">日期*：</label>
       <input type="date" class="form-control p-2 flex-grow-1" id="date" aria-describedby="date" placeholder="date"
-        name="date">
+        name="date" value="{{ expenses.date }}">
     </div>
 
     <div class="d-flex mb-3">
       <label for="category" class="form-label p-2">類別*：</label>
-      <select class="form-select" aria-label="category" name="category" class="form-control p-2 flex-grow-1">
+      <select class="form-select" aria-label="category" name="category" class="form-control p-2 flex-grow-1"
+        value="{{ expenses.category }}">
         <option selected>Select</option>
         <option value="1">家居物業</option>
         <option value="2">交通出行</option>
@@ -36,12 +37,11 @@
     <div class="d-flex mb-5">
       <label for="amount" class="form-label p-2">金額*：</label>
       <input type="number" class="form-control p-2 flex-grow-1" id="amount" aria-describedby="amount"
-        placeholder="amount" name="amount">
+        placeholder="amount" name="amount" value="{{ expenses.amount }}">
     </div>
 
     <div class="text-center">
-      <button type="submit" class="btn btn-primary">新增支出</button>
-      <button type="reset" class="btn btn-danger">重新填寫</button>
+      <button type="submit" class="btn btn-primary">送出</button>
     </div>
   </form>
 

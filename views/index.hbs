@@ -3,11 +3,13 @@
   <ul>
     {{#each expenses}}
     <li>
-      {{this.name}}
+      {{ this.name }}
+      <a href="./expenses/{{ this._id }}/edit">修改</a>
     </li>
     {{/each}}
   </ul>
 
   <a href="./expenses/new">新增支出</a>
+
 
 </div>
