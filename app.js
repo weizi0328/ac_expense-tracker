@@ -68,6 +68,15 @@ app.post('/expenses/:id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// 刪除
+app.post('/expenses/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Expense.findById(id)
+    .then(expense => expense.remove())
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
+
 
 app.listen(port, () => {
   console.log(`Express is running on http://localhost:${port}`)
