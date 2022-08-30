@@ -1,20 +1,19 @@
-const mongoose = require('mongoose')
 const Expense = require('../expense')
+const mongoose = require('mongoose')
+
+const expenseList = require('../../expenses.json').results
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-
 db.once('open', () => {
-  console.log('mongodb connected!')
+  console.log('running expenseSeeder...')
 
-  for (let i = 0; i < 10; i++) {
-    Expense.create({ name: 'name-' + i })
-  }
-
-  console.log('done')
+  Expense.create(expenseList)
+    .then(() => {
+      console.log('expenseSeeder done!')
+      db.close()
+    })
+    .catch(err => console.log(err))
 })

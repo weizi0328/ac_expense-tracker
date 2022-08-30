@@ -25,10 +25,11 @@ app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 
-
+// 瀏覽
 app.get('/', (req, res) => {
   Expense.find()
     .lean()
+    .sort({ _id: 'asc' })
     .then(expenses => res.render('index', { expenses }))
     .catch(err => console.error(err))
 })
