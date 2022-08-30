@@ -1,11 +1,11 @@
 <div class="container mt-5">
 
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Regular link</a></li>
-    <li><a class="dropdown-item disabled">Disabled link</a></li>
-    <li><a class="dropdown-item" href="#">Another link</a></li>
+  <ul>
+    {{#each expenses}}
+    <li>
+      {{this.name}}
+    </li>
+    {{/each}}
   </ul>
-
-  <h2>Hello world! index</h2>
 
 </div>

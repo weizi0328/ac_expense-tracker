@@ -1,10 +1,10 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 
 const Expense = require('./models/expense')
-const app = express()
 
-const mongoose = require('mongoose')
+const app = express()
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -21,15 +21,12 @@ db.once('open', () => {
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
 
-
 app.get('/', (req, res) => {
   Expense.find()
     .lean()
     .then(expenses => res.render('index', { expenses }))
     .catch(err => console.error(err))
 })
-
-app.get()
 
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')
