@@ -1,18 +1,18 @@
-const Expense = require('../expense')
+const Category = require('../category')
 const mongoose = require('mongoose')
 
-const expenseList = require('../../expenses.json').results
+const categoryList = require('../../categoryList.json').results
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
 db.once('open', () => {
-  console.log('running expenseSeeder...')
+  console.log('running categorySeeder...')
 
-  Expense.create(expenseList)
+  Category.create(categoryList)
     .then(() => {
-      console.log('expenseSeeder done!')
+      console.log('categorySeeder done!')
       db.close()
     })
     .catch(err => console.log(err))

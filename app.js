@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 
-const Expense = require('./models/expense')
+const Record = require('./models/record')
 
 const app = express()
 
@@ -27,10 +27,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 瀏覽
 app.get('/', (req, res) => {
-  Expense.find()
+  Record.find()
     .lean()
     .sort({ _id: 'asc' })
-    .then(expenses => res.render('index', { expenses }))
+    .then(records => res.render('index', { records }))
     .catch(err => console.error(err))
 })
 
