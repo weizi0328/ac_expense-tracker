@@ -1,19 +1,31 @@
-const Record = require('../record')
 const mongoose = require('mongoose')
 
-const recordList = require('../../recordList.json').results
+const Record = require('../record')
+const Category = require('../category')
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
-db.once('open', () => {
-  console.log('running recordSeeder...')
+db.on('error', () => {
+  console.log('mongodb error!')
+})
 
-  Record.create(recordList)
-    .then(() => {
-      console.log('recordSeeder done!')
-      db.close()
+db.once('open', () => {
+  console.log('mongodb connected!')
+  return Category.find()
+    .lean()
+    .then(categories => {
+      return Promise.all(Array.from({ length: categories.length }, (_, i) => {
+        return Record.create({
+          name: categories[i].name,
+          date: Date.now(),
+          amount: (i + 1) * 100,
+          categoryId: categories[i]._id
+        })
+      }
+      ))
     })
-    .catch(err => console.log(err))
+  console.log('done.')
+  process.exit()
 })

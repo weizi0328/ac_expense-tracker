@@ -1,20 +1,21 @@
 <div class="container mt-5">
 
-  <ul>
-    {{#each expenses}}
-    <li>
-      {{ this.name }}
-      <a href="./expenses/{{ this._id }}/edit">修改</a>
+  <div class="dropdown">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      類別
+    </button>
+    <ul class="dropdown-menu">
+      {{#each categoryList}}
+      <li><button class="dropdown-item" type="button">{{ this.name }}</button></li>
+      {{/each}}
+    </ul>
+  </div>
 
-      <form action="./expenses/{{ this._id }}/delete" method="POST" style="display: inline;">
-        <button type="submit">delete</button>
-      </form>
 
-    </li>
-    {{/each}}
-  </ul>
+</div>
 
-  <a href="./expenses/new">新增支出</a>
+<a href="./expenses/new">新增支出</a>
 
 
 </div>

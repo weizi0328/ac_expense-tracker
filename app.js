@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 
 const Record = require('./models/record')
+const Category = require('./models/category')
 
 const app = express()
 
@@ -27,12 +28,34 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 瀏覽
 app.get('/', (req, res) => {
-  Record.find()
+  Record
+    .find()
     .lean()
     .sort({ _id: 'asc' })
-    .then(records => res.render('index', { records }))
-    .catch(err => console.error(err))
+    .then(records => {
+      Category
+        .find()
+        .lean()
+        .then(categoryList => res.render('index', { categoryList }))
+        .catch(err => console.log(err))
+    })
+    .then(recordList => {
+      res.render('index', { recordList })
+    })
 })
+
+// app.get('/', (req, res) => {
+//   Record.find()
+//     .lean()
+//     .sort({ _id: 'asc' })
+//     .then(recordList => res.render('index', { recordList }))
+//     .catch(err => console.error(err))
+// })
+
+
+
+
+
 
 // 新增
 app.get('/expenses/new', (req, res) => {
