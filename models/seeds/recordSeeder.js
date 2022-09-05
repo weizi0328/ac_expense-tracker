@@ -1,5 +1,6 @@
 const Record = require('../record')
 const Category = require('../category')
+const User = require('./../user')
 const mongoose = require('mongoose')
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -50,12 +51,15 @@ db.on('error', () => {
 
 db.once('open', () => {
   console.log('recordSeeder is running')
-  Promise.all(SEED_RECORD.map(record => {
-    console.log(`${record.name} has been created.`)
-    return Record.create({ ...record })
-  }))
-    .then(() => {
-      console.log('recordSeeder is done.')
-      process.exit()
+  User.create(SEED_USER)
+    .then(user => {
+      Promise.all(SEED_RECORD.map(record => {
+        console.log(`${record.name} has been created.`)
+        return Record.create({ ...record, userId: user._id })
+      }))
+        .then(() => {
+          console.log('recordSeeder is done.')
+          process.exit()
+        })
     })
 })

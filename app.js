@@ -29,17 +29,18 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 瀏覽
 app.get('/', (req, res) => {
+  console.log(req.user)
+  const userId = req.user._id
   Record.find({ userId })
     .lean()
-    .sort({ name: 'asc' }) // 正序asc，反序desc
-    .then(expenses => {
+    .sort({ name: 'asc' })
+    .then(recordData => {
       let totalAmount = 0
-      for (let i = 0; i < expenses.length; i++) {
-        totalAmount += expenses[i].amount
+      for (let i = 0; i < recordData.length; i++) {
+        totalAmount += recordData[i].amount
       }
-      res.render('index', { expenses, totalAmount })
+      res.render('index', { recordData, totalAmount })
     })
-
 })
 
 // 新增

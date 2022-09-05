@@ -1,23 +1,19 @@
-<div class="container mt-5" style="margin: 0 auto">
-
-  {{!-- 使用form action="/" method="get" 來篩選嗎？Nancy --}}
-  {{!-- 類別選單 --}}
-  <div class="col-md-6 m-auto p-0 d-flex align-items-center">
-    <form action="/" method="GET" class="col-sm-3 text-center" id="search-by-category">
-      <div class="col-sm-9 mb-4">
-        <select class="form-select" style="width: 200px; height: 30px;" name="categoryId" id="category"
-          onchange="this.form.submit()">
-          <option>全部</option>
-          {{{ }}}
+<div class="container mt-5">
+  {{!-- Dropdown 下拉式選單 --}}
+  <div class="row d-flex justify-content-center">
+    <div class="col-5 mt-3">
+      <form action="/category" method="POST">
+        <select class="form-select" name="category" id="category" onchange="this.form.submit()">
+          <option disabled selected>類別</option>
+          <option value="1">家居物業</option>
+          <option value="2">交通出行</option>
+          <option value="3">休閒娛樂</option>
+          <option value="4">餐飲食品</option>
+          <option value="5">其他</option>
         </select>
-      </div>
-    </form>
-
-    <div class="col-sm-6 ps-3">
-      {{> message}}
+      </form>
     </div>
   </div>
-
 
   {{!-- Total amount --}}
   <div class="row text-center mt-5 mb-5">
@@ -44,7 +40,7 @@
           {{!-- Name & amount per item --}}
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{ this.name }}</h5>
-            <h5 class="mb-1">{{ this.amount }}</h5>
+            <h5 class="mb-1">{{ this.amount }}元</h5>
             <small></small>
           </div>
 
