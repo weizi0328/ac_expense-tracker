@@ -26,50 +26,35 @@ app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 
+
 // 瀏覽
 app.get('/', (req, res) => {
-  Record
-    .find()
+  Record.find({ userId })
     .lean()
-    .sort({ _id: 'asc' })
-    .then(records => {
-      Category
-        .find()
-        .lean()
-        .then(categoryList => res.render('index', { categoryList }))
-        .catch(err => console.log(err))
+    .sort({ name: 'asc' }) // 正序asc，反序desc
+    .then(expenses => {
+      let totalAmount = 0
+      for (let i = 0; i < expenses.length; i++) {
+        totalAmount += expenses[i].amount
+      }
+      res.render('index', { expenses, totalAmount })
     })
-    .then(recordList => {
-      res.render('index', { recordList })
-    })
+
 })
 
-// app.get('/', (req, res) => {
-//   Record.find()
-//     .lean()
-//     .sort({ _id: 'asc' })
-//     .then(recordList => res.render('index', { recordList }))
-//     .catch(err => console.error(err))
-// })
-
-
-
-
-
-
 // 新增
-app.get('/expenses/new', (req, res) => {
+app.get('/records/new', (req, res) => {
   return res.render('new')
 })
 
-app.post('/expenses', (req, res) => {
+app.post('/records', (req, res) => {
   return Expense.create(req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 
 // 修改
-app.get('/expenses/:id/edit', (req, res) => {
+app.get('/records/:id/edit', (req, res) => {
   const id = req.params.id
   return Expense.findById(id)
     .lean()
@@ -77,7 +62,7 @@ app.get('/expenses/:id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.post('/expenses/:id/edit', (req, res) => {
+app.post('/records/:id/edit', (req, res) => {
   const id = req.params.id
   const data = req.body
   return Expense.findById(id)
@@ -93,7 +78,7 @@ app.post('/expenses/:id/edit', (req, res) => {
 })
 
 // 刪除
-app.post('/expenses/:id/delete', (req, res) => {
+app.post('/records/:id/delete', (req, res) => {
   const id = req.params.id
   return Expense.findById(id)
     .then(expense => expense.remove())

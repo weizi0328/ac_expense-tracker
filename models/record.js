@@ -8,7 +8,6 @@ const recordSchema = new Schema({
   },
   date: {
     type: Date,
-    Default: Date.now,
     required: true
   },
   amount: {
@@ -16,9 +15,10 @@ const recordSchema = new Schema({
     required: true
   },
   categoryId: {
-    type: Schema.Types.ObjectId,
+    type: Number,
     ref: 'Category',
-    required: true
+    index: 'true',
+    required: false
   }
 })
 
