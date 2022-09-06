@@ -115,6 +115,21 @@ app.post('/records/:id/delete', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// Category 選單
+app.post('/category', (req, res) => {
+  const categoryId = req.body.category
+  Record.find({ categoryId })
+    .lean()
+    .sort({ date: 'desc' })
+    .then(recordData => {
+      let totalAmount = 0
+      for (let i = 0; i < recordData.length; i++) {
+        totalAmount += recordData[i].amount
+      }
+      res.render('index', { recordData, totalAmount })
+    })
+    .catch(err => console.error(err))
+})
 
 app.listen(port, () => {
   console.log(`Express is running on http://localhost:${port}`)
