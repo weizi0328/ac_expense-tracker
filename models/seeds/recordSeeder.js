@@ -1,5 +1,4 @@
 const Record = require('../record')
-const Category = require('../category')
 const User = require('./../user')
 const mongoose = require('mongoose')
 

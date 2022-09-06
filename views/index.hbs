@@ -33,8 +33,9 @@
           class="list-group-item list-group-item-action list-group-item-light d-flex align-items-center justify-content-around">
 
           {{!-- Icon --}}
+          {{!-- categoryIcon 為自定義 handlebars helper --}}
           <div class="record_icon">
-            <i class="category_icon {{this.categoryId.icon}}"></i>
+            <i class="category_icon fa-solid {{ categoryIcon this.categoryId }} f5-5"></i>
           </div>
 
           {{!-- Name & amount per item --}}
@@ -46,7 +47,8 @@
 
           {{!-- Amount per item --}}
           <div class="d-flex w-100 justify-content-between">
-            <p class="mb-1">{{ this.date }}</p>
+            {{!-- dateFormat 為自定義 handlebars helper --}}
+            <p class="mb-1">{{ dateFormat this.date }}</p>
 
             {{!-- Edit button --}}
             <a href="./records/{{ this._id }}/edit"><button class="btn btn-outline-dark">修改</button></a>
