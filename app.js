@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
 const Record = require('./models/record')
+const routes = require('./routes')
 
 const app = express()
 
@@ -55,66 +56,14 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.use(routes)
 
-// 瀏覽
-app.get('/', (req, res) => {
-  Record.find()
-    .lean()
-    .sort({ date: 'desc' })
-    .then(recordData => {
-      let totalAmount = 0
-      for (let i = 0; i < recordData.length; i++) {
-        totalAmount += recordData[i].amount
-      }
-      res.render('index', { recordData, totalAmount })
-    })
-    .catch(err => console.error(err))
-})
 
-// 新增
-app.get('/records/new', (req, res) => {
-  return res.render('new')
-})
 
-app.post('/records', (req, res) => {
-  console.log(req.body)
-  return Record.create(req.body)
-    .then(() => res.redirect('/'))
-    .catch(err => console.log(err))
-})
 
-// 修改
-app.get('/records/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
-    .lean()
-    .then(recordData => res.render('edit', { recordData }))
-    .catch(err => console.log(err))
-})
 
-app.put('/records/:id', (req, res) => {
-  const id = req.params.id
-  const { name, date, amount, categoryId } = req.body
-  return Record.findById(id)
-    .then(recordData => {
-      recordData.name = name
-      recordData.date = date
-      recordData.amount = amount
-      recordData.categoryId = categoryId
-      return recordData.save()
-    })
-    .then(() => res.redirect('/'))
-    .catch(err => console.log(err))
-})
 
-// 刪除
-app.delete('/records/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
-    .then(recordData => recordData.remove())
-    .then(() => res.redirect('/'))
-    .catch(err => console.log(err))
-})
+
 
 // Category 選單
 app.post('/category', (req, res) => {
