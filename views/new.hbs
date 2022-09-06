@@ -1,6 +1,6 @@
 <div class="container mt-5">
 
-  <form action="/expenses" method="POST">
+  <form action="/records" method="POST">
 
     <div class="d-flex mb-3">
       <div id="formHelp" class="form-text p-3 mb-3">*必填欄位</div>
@@ -12,19 +12,19 @@
     <div class="d-flex mb-3">
       <label for="name" class="form-label p-2">名稱*：</label>
       <input type="text" class="form-control p-2 flex-grow-1" id="name" aria-describedby="name" placeholder="name"
-        name="name">
+        name="name" required>
     </div>
 
     <div class="d-flex mb-3">
       <label for="date" class="form-label p-2">日期*：</label>
       <input type="date" class="form-control p-2 flex-grow-1" id="date" aria-describedby="date" placeholder="date"
-        name="date">
+        name="date" required>
     </div>
 
     <div class="d-flex mb-3">
       <label for="category" class="form-label p-2">類別*：</label>
-      <select class="form-select" aria-label="category" name="category" class="form-control p-2 flex-grow-1">
-        <option selected>Select</option>
+      <select class="form-select p-2 flex-grow-1" aria-label="category" name="categoryId" id="category" required>
+        <option selected disabled value="">選擇類別</option>
         <option value="1">家居物業</option>
         <option value="2">交通出行</option>
         <option value="3">休閒娛樂</option>
@@ -36,10 +36,10 @@
     <div class="d-flex mb-5">
       <label for="amount" class="form-label p-2">金額*：</label>
       <input type="number" class="form-control p-2 flex-grow-1" id="amount" aria-describedby="amount"
-        placeholder="amount" name="amount">
+        placeholder="amount" name="amount" required>
     </div>
 
-    <div class="text-center">
+    <div class="mx-auto">
       <button type="submit" class="btn btn-primary">新增支出</button>
       <button type="reset" class="btn btn-danger">重新填寫</button>
     </div>

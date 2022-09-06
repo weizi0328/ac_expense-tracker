@@ -70,7 +70,8 @@ app.get('/records/new', (req, res) => {
 })
 
 app.post('/records', (req, res) => {
-  return Expense.create(req.body)
+  console.log(req.body)
+  return Record.create(req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
