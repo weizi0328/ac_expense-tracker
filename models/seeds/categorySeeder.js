@@ -1,9 +1,5 @@
 const Category = require('../category')
-const mongoose = require('mongoose')
-
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
+const db = require('../../config/mongoose')
 
 const categoryData = [
   {

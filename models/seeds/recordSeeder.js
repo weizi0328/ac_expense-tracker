@@ -1,10 +1,8 @@
 const Record = require('../record')
 const User = require('./../user')
-const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+const db = require('../../config/mongoose')
 
-const db = mongoose.connection
 
 const SEED_USER = {
   name: 'user',

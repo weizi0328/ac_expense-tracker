@@ -6,22 +6,11 @@ const methodOverride = require('method-override')
 
 const Record = require('./models/record')
 const routes = require('./routes')
+require('./config/mongoose')
 
 const app = express()
 
 const port = 3000
-
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
 
 app.engine('hbs', exphbs({
   defaultLayout: 'main',
@@ -57,14 +46,6 @@ app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(routes)
-
-
-
-
-
-
-
-
 
 
 app.listen(port, () => {
