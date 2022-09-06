@@ -1,6 +1,5 @@
 <div class="container mt-5">
-
-  <form action="/expenses/{{ expenses._id }}/edit" method="POST">
+  <form action="/records/{{ recordData._id }}/edit" method="POST">
 
     <div class="d-flex mb-3">
       <div id="formHelp" class="form-text p-3 mb-3">*必填欄位</div>
@@ -10,39 +9,40 @@
     </div>
 
     <div class="d-flex mb-3">
-      <label for="name" class="form-label p-2">名稱*：</label>
-      <input type="text" class="form-control p-2 flex-grow-1" id="name" aria-describedby="name" placeholder="date"
-        name="name" value="{{ expenses.name }}">
+      <label for="name" class="form-label w-25 p-2 text-center">名稱*：</label>
+      <input type="text" class="form-control p-2 flex-grow-1" id="name" aria-describedby="name" placeholder="名稱"
+        name="name" value="{{ recordData.name }}" required>
     </div>
 
     <div class="d-flex mb-3">
-      <label for="date" class="form-label p-2">日期*：</label>
+      <label for="date" class="form-label w-25 p-2 text-center">日期*：</label>
       <input type="date" class="form-control p-2 flex-grow-1" id="date" aria-describedby="date" placeholder="date"
-        name="date" value="{{ expenses.date }}">
+        name="date" value="{{ dateFormat recordData.date }}" required>
     </div>
 
     <div class="d-flex mb-3">
-      <label for="category" class="form-label p-2">類別*：</label>
-      <select class="form-select" aria-label="category" name="category" class="form-control p-2 flex-grow-1"
-        value="{{ expenses.category }}">
-        <option selected>Select</option>
-        <option value="1">家居物業</option>
-        <option value="2">交通出行</option>
-        <option value="3">休閒娛樂</option>
-        <option value="4">餐飲食品</option>
-        <option value="5">其他</option>
+      <label for="category" class="form-label w-25 p-2 text-center">類別*：</label>
+      <select class="form-select p-2 flex-grow-1" aria-label="category" name="categoryId" id="category"
+        value="{{ recordData.category }}" required>
+        <option selected disabled value="">選擇類別</option>
+        {{!-- ifEqual 為自定義 handlebars helper，兩質相同則回傳 true --}}
+        <option value="1" {{#ifEqual recordData.categoryId 1 }}selected{{/ifEqual}}>家居物業</option>
+        <option value="2" {{#ifEqual recordData.categoryId 2 }}selected{{/ifEqual}}>交通出行</option>
+        <option value="3" {{#ifEqual recordData.categoryId 3 }}selected{{/ifEqual}}>休閒娛樂</option>
+        <option value="4" {{#ifEqual recordData.categoryId 4 }}selected{{/ifEqual}}>餐飲食品</option>
+        <option value="5" {{#ifEqual recordData.categoryId 5 }}selected{{/ifEqual}}>其他</option>
       </select>
     </div>
 
     <div class="d-flex mb-5">
-      <label for="amount" class="form-label p-2">金額*：</label>
-      <input type="number" class="form-control p-2 flex-grow-1" id="amount" aria-describedby="amount"
-        placeholder="amount" name="amount" value="{{ expenses.amount }}">
+      <label for="amount" class="form-label w-25 p-2 text-center">金額*：</label>
+      <input type="number" class="form-control p-2 flex-grow-1" id="amount" aria-describedby="amount" placeholder="金額"
+        name="amount" value="{{ recordData.amount }}" required>
     </div>
 
-    <div class="text-center">
+    <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-primary">送出</button>
     </div>
-  </form>
 
+  </form>
 </div>

@@ -1,5 +1,4 @@
 <div class="container mt-5">
-
   <form action="/records" method="POST">
 
     <div class="d-flex mb-3">
@@ -10,19 +9,19 @@
     </div>
 
     <div class="d-flex mb-3">
-      <label for="name" class="form-label p-2">名稱*：</label>
-      <input type="text" class="form-control p-2 flex-grow-1" id="name" aria-describedby="name" placeholder="name"
+      <label for="name" class="form-label w-25 p-2 text-center">名稱*：</label>
+      <input type="text" class="form-control p-2 flex-grow-1" id="name" aria-describedby="name" placeholder="名稱"
         name="name" required>
     </div>
 
     <div class="d-flex mb-3">
-      <label for="date" class="form-label p-2">日期*：</label>
+      <label for="date" class="form-label w-25 p-2 text-center">日期*：</label>
       <input type="date" class="form-control p-2 flex-grow-1" id="date" aria-describedby="date" placeholder="date"
         name="date" required>
     </div>
 
     <div class="d-flex mb-3">
-      <label for="category" class="form-label p-2">類別*：</label>
+      <label for="category" class="form-label w-25 p-2 text-center">類別*：</label>
       <select class="form-select p-2 flex-grow-1" aria-label="category" name="categoryId" id="category" required>
         <option selected disabled value="">選擇類別</option>
         <option value="1">家居物業</option>
@@ -34,15 +33,15 @@
     </div>
 
     <div class="d-flex mb-5">
-      <label for="amount" class="form-label p-2">金額*：</label>
-      <input type="number" class="form-control p-2 flex-grow-1" id="amount" aria-describedby="amount"
-        placeholder="amount" name="amount" required>
+      <label for="amount" class="form-label w-25 p-2 text-center">金額*：</label>
+      <input type="number" class="form-control p-2 flex-grow-1" id="amount" aria-describedby="amount" placeholder="金額"
+        name="amount" required>
     </div>
 
-    <div class="mx-auto">
+    <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-primary">新增支出</button>
       <button type="reset" class="btn btn-danger">重新填寫</button>
     </div>
-  </form>
 
+  </form>
 </div>

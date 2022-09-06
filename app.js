@@ -41,6 +41,12 @@ app.engine('hbs', exphbs({
         case 5:
           return 'fa-pen'
       }
+    },
+    // 條件 (三元) 運算子
+    // 條件 ? 值1 : 值2
+    // 如果 條件 為 true，運算子回傳 值 1，否則回傳 值 2。 
+    ifEqual(a, b, options) {
+      return a === b ? options.fn(this) : options.inverse(this)
     }
   }
 }))
@@ -79,22 +85,22 @@ app.post('/records', (req, res) => {
 // 修改
 app.get('/records/:id/edit', (req, res) => {
   const id = req.params.id
-  return Expense.findById(id)
+  return Record.findById(id)
     .lean()
-    .then(expenses => res.render('edit', { expenses }))
+    .then(recordData => res.render('edit', { recordData }))
     .catch(err => console.log(err))
 })
 
 app.post('/records/:id/edit', (req, res) => {
   const id = req.params.id
-  const data = req.body
-  return Expense.findById(id)
-    .then(expenses => {
-      const columns = ['name', 'date', 'category', 'amount']
-      for (let i = 0; i < columns.length; i++) {
-        expenses[columns[i]] = data[columns[i]]
-      }
-      return expenses.save()
+  const { name, date, amount, categoryId } = req.body
+  return Record.findById(id)
+    .then(recordData => {
+      recordData.name = name
+      recordData.date = date
+      recordData.amount = amount
+      recordData.categoryId = categoryId
+      return recordData.save()
     })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
