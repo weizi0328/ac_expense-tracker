@@ -109,8 +109,8 @@ app.post('/records/:id/edit', (req, res) => {
 // 刪除
 app.post('/records/:id/delete', (req, res) => {
   const id = req.params.id
-  return Expense.findById(id)
-    .then(expense => expense.remove())
+  return Record.findById(id)
+    .then(recordData => recordData.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
