@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const Record = require('./models/record')
 
@@ -53,7 +54,7 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(methodOverride('_method'))
 
 // 瀏覽
 app.get('/', (req, res) => {
@@ -91,7 +92,7 @@ app.get('/records/:id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.post('/records/:id/edit', (req, res) => {
+app.put('/records/:id', (req, res) => {
   const id = req.params.id
   const { name, date, amount, categoryId } = req.body
   return Record.findById(id)
@@ -107,7 +108,7 @@ app.post('/records/:id/edit', (req, res) => {
 })
 
 // 刪除
-app.post('/records/:id/delete', (req, res) => {
+app.delete('/records/:id', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .then(recordData => recordData.remove())
