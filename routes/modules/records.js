@@ -10,7 +10,7 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log(req.body)
+  req.body.userId = req.user._id
   return Record.create(req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
@@ -18,17 +18,19 @@ router.post('/', (req, res) => {
 
 // 修改
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({ _id, userId })
     .lean()
     .then(recordData => res.render('edit', { recordData }))
     .catch(err => console.log(err))
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, date, amount, categoryId } = req.body
-  return Record.findById(id)
+  return Record.findOne({ _id, userId })
     .then(recordData => {
       recordData.name = name
       recordData.date = date
@@ -42,8 +44,9 @@ router.put('/:id', (req, res) => {
 
 // 刪除
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({ _id, userId })
     .then(recordData => recordData.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
