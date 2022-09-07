@@ -25,6 +25,7 @@ IF YOU LIKE THIS WEBSITE, PLEASE DONATE MY BY PAYPAL: ankewang26@gmail.com
 - Passwords are encrypted.
 
 
+
 ## Installing
 1. Clone the project to your localhost.
    ```
@@ -35,6 +36,7 @@ IF YOU LIKE THIS WEBSITE, PLEASE DONATE MY BY PAYPAL: ankewang26@gmail.com
    ```
    npm install
    ```
+   
 3. Refer to file ".env.example" and set environment variables.
 
 4. Seed the database
@@ -50,12 +52,12 @@ IF YOU LIKE THIS WEBSITE, PLEASE DONATE MY BY PAYPAL: ankewang26@gmail.com
 6. If you see the following line, the project is running. Open your browser and go to the following URL:
 
    ```
-  Express is running on http://localhost:3000
-  mongodb connected!
+   Express is running on http://localhost:3000
+   mongodb connected!
    ```
 
 7. Stop running the project:
-
+   
    ```
    ctrl + c
    ```
