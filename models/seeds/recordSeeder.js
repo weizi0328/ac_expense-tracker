@@ -1,3 +1,8 @@
+const bcrypt = require('bcryptjs')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const Record = require('../record')
 const User = require('./../user')
 
@@ -42,21 +47,25 @@ const SEED_RECORD = [
     categoryId: 3
   }]
 
-db.on('error', () => {
-  console.log('mongodb error!')
-})
 
 db.once('open', () => {
-  console.log('recordSeeder is running')
-  User.create(SEED_USER)
+  bcrypt
+    .genSalt(10)
+    .then(salt => bcrypt.hash(SEED_USER.password, salt))
+    .then(hash => User.create({
+      name: SEED_USER.name,
+      email: SEED_USER.email,
+      password: hash
+    }))
     .then(user => {
-      Promise.all(SEED_RECORD.map(record => {
+      const userId = user._id
+      return Promise.all(SEED_RECORD.map(record => {
         console.log(`${record.name} has been created.`)
-        return Record.create({ ...record, userId: user._id })
+        return Record.create({ ...record, userId })
       }))
-        .then(() => {
-          console.log('recordSeeder is done.')
-          process.exit()
-        })
+    })
+    .then(() => {
+      console.log('recordSeeder is done.')
+      process.exit()
     })
 })
