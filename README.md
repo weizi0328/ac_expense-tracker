@@ -1,19 +1,15 @@
 # Expense Tracker 家庭記帳本
 
-![Home page](./public/images/img_expense-tracker.jpg)
+An online expense tracker which users can record their personal expenses by account register.
 
-## Intro
-
-Record your expenses on the website.
-
-###########################################################################
+##########################################################################
 
 IF YOU LIKE THIS WEBSITE, PLEASE DONATE MY BY PAYPAL: ankewang26@gmail.com
 
-###########################################################################
+##########################################################################
 
 
-## User Story
+## Features
 - View itemized expenses.
 - View total amount.
 - Classify by different category.
@@ -24,43 +20,42 @@ IF YOU LIKE THIS WEBSITE, PLEASE DONATE MY BY PAYPAL: ankewang26@gmail.com
 - Login by email and view personal expenses.
 - Passwords are encrypted.
 
+## Screen
+![Home page](./public/images/img_expense-tracker.jpg)
 
 
-## Installing
+## Getting started
 1. Clone the project to your localhost.
-   ```
-   git clone https://github.com/weizi0328/ac_expense-tracker.git
-   ```
+   
+   `git clone https://github.com/weizi0328/ac_expense-tracker.git`
 2. Go to the folder through your terminal and install npm (node package manager)
-
-   ```
-   npm install
-   ```
+   
+   `npm install`
    
 3. Refer to file ".env.example" and set environment variables.
 
 4. Seed the database
-   ```
-   npm run seed
-   ```
+   
+   `npm run seed`
 
 5. Run the project
-   ```
-   npm run start
-   ```
+   
+   `npm run start`
 
 6. If you see the following line, the project is running. Open your browser and go to the following URL:
 
-   ```
-   Express is running on http://localhost:3000
-   mongodb connected!
-   ```
+   `Express is running on http://localhost:3000`
+   `mongodb connected!`
 
 7. Stop running the project:
    
-   ```
-   ctrl + c
-   ```
+   `ctrl + c`
+
+
+## Seeder intro
+- 5 records with 5 standard categories
+- Default login email: `user@example.com`
+- Default login password: `12345678`
 
 
 ## Development tools
